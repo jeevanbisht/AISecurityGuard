@@ -170,7 +170,8 @@ checks to block SQL injection and prompt-injection payloads.
 
 ## Suggested release version
 
-`v0.1.0`
+`v0.2.0`. The initial publication was tagged `v0.1.0`; removing the unrelated
+training pipeline warranted a follow-up minor release.
 
 ## Suggested commit message
 
