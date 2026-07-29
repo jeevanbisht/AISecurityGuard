@@ -1,35 +1,25 @@
 version: 2
 updates:
+  # The pip ecosystem scans the repository recursively from the root, so a
+  # single entry covers every requirements file. Adding per-directory entries
+  # here produces duplicate pull requests for the same upgrade.
   - package-ecosystem: pip
     directory: /
     schedule:
       interval: monthly
-  - package-ecosystem: pip
+  - package-ecosystem: docker
     directory: /ai_model_service
     schedule:
       interval: monthly
-  - package-ecosystem: pip
+  - package-ecosystem: docker
     directory: /webserver
     schedule:
       interval: monthly
-  - package-ecosystem: pip
+  - package-ecosystem: docker
     directory: /reference_filter
-    schedule:
-      interval: monthly
-  - package-ecosystem: pip
-    directory: /model_training
-    schedule:
-      interval: monthly
-  - package-ecosystem: docker
-    directory: /ai_model_service
-    schedule:
-      interval: monthly
-  - package-ecosystem: docker
-    directory: /webserver
     schedule:
       interval: monthly
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: monthly
-
