@@ -72,8 +72,8 @@ service names `ai_model_service` and `webserver`, and `example.com` or
 
 ## Dependencies
 
-All pins were checked against the current package index and each one is the
-latest available release.
+All pins were checked against the current package index. Runtime and tooling
+pins are at the latest available release.
 
 | Package | Pinned | Latest available |
 | --- | --- | --- |
@@ -84,9 +84,31 @@ latest available release.
 | `pip-audit` | 2.10.1 | 2.10.1 |
 | `ruff` | 0.16.0 | 0.16.0 |
 
+Updated during publication, after Dependabot flagged them:
+
+| Package | From | To |
+| --- | --- | --- |
+| `joblib` | 1.5.1 | 1.5.3 |
+| `numpy` | 2.3.2 | 2.5.1 |
+| `scikit-learn` | 1.7.1 | 1.9.0 |
+| `tqdm` | 4.67.1 | 4.70.0 |
+| `actions/checkout` | v4 | v7 |
+| `actions/setup-python` | v5 | v7 |
+
+Held back deliberately:
+
+- `pandas` stays at 2.3.1. Version 3.0.5 is a major release with breaking
+  changes, and the training dependencies are not installed locally, so the
+  upgrade could not be validated against `model_training/cbdb_extractor.py`.
+- The `python:3.11-slim` container base stays as is. Dependabot proposes
+  `3.14-slim`, but `torch` and `transformers` wheel availability for that
+  interpreter could not be verified without a working Docker daemon, and
+  `pyproject.toml` targets `py311`.
+
 `pip-audit` across all five requirement files reports no known vulnerabilities.
 No unused packages were found. Dependabot is configured for every pip directory,
-both Docker build contexts, and GitHub Actions.
+both Docker build contexts, and GitHub Actions, and was confirmed working on the
+published repository.
 
 ## Documentation
 
@@ -118,6 +140,14 @@ Present and verified:
 | Secret and PII scan | No findings |
 | Docker image build | Not run, local Docker daemon unavailable. CI builds both images. |
 
+## Publication
+
+The repository was published to
+[`jeevanbisht/AISecurityGuard`](https://github.com/jeevanbisht/AISecurityGuard)
+as a public repository with the recommended description and topics applied. The
+target repository was empty beforehand, so the clean history created during this
+review is the only history it contains.
+
 ## Remaining TODOs
 
 - Rotate or disable the Azure Container Registry credential that was previously
@@ -128,6 +158,8 @@ Present and verified:
   first release, since image builds could not be exercised locally.
 - Capture the two screenshots described in `docs/screenshots/README.md`.
 - Enable GitHub private vulnerability reporting so `SECURITY.md` is actionable.
+- Decide on the `pandas` 3.x and `python:3.14-slim` upgrades once a Docker
+  daemon is available to validate them.
 - Optional hardening not applied because it could not be build-tested: run the
   container images as a non-root user and set `HF_HOME` so the prefetched
   MobileBERT cache stays readable.
