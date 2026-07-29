@@ -5,8 +5,17 @@ is based on Keep a Changelog, and the project follows Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-07-28
+
 ### Added
 
+- Envoy HTTP and HTTPS listeners with fail-closed external authorization.
+- MobileBERT-backed SQL injection classification with deterministic pattern
+  checks and explicit prompt-injection checks.
+- Docker Compose environment for the proxy, guard, and sample web application.
+- Local and remote integration test scripts.
+- Optional CBDB model-training examples and a heuristic reference filter with
+  regression cases.
 - Public project documentation, community health files, CI, and release
   automation.
 - Environment-driven deployment configuration and safe example values.
@@ -20,4 +29,7 @@ is based on Keep a Changelog, and the project follows Semantic Versioning.
 - Stopped publishing internal service ports from Docker Compose.
 - Removed generated TLS material and deployment manifests from the working tree
   and broadened the ignore rules that keep them out of version control.
+
+[Unreleased]: https://github.com/jeevanbisht/AISecurityGuard/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/jeevanbisht/AISecurityGuard/releases/tag/v0.1.0
 

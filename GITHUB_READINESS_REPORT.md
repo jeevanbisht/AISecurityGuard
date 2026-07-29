@@ -102,8 +102,8 @@ Held back deliberately:
   upgrade could not be validated against `model_training/cbdb_extractor.py`.
 - The `python:3.11-slim` container base stays as is. Dependabot proposes
   `3.14-slim`, but `torch` and `transformers` wheel availability for that
-  interpreter could not be verified without a working Docker daemon, and
-  `pyproject.toml` targets `py311`.
+  interpreter is unconfirmed, and `pyproject.toml` targets `py311`. The current
+  base image builds successfully in CI.
 
 `pip-audit` across all five requirement files reports no known vulnerabilities.
 No unused packages were found. Dependabot is configured for every pip directory,
@@ -138,7 +138,7 @@ Present and verified:
 | `docker compose config --quiet` | Valid |
 | Relative Markdown links | No broken links |
 | Secret and PII scan | No findings |
-| Docker image build | Not run, local Docker daemon unavailable. CI builds both images. |
+| Docker image build | Passed in CI on the published repository (`container-build` job) |
 
 ## Publication
 
@@ -152,16 +152,15 @@ review is the only history it contains.
 
 - Rotate or disable the Azure Container Registry credential that was previously
   written into the generated manifest.
-- The published repository `jeevanbisht/AISecurityGuard` was empty before the
-  first push, so the clean history is the only history it contains.
-- Start Docker Desktop and run `docker compose build --pull` once before the
-  first release, since image builds could not be exercised locally.
 - Capture the two screenshots described in `docs/screenshots/README.md`.
 - Enable GitHub private vulnerability reporting so `SECURITY.md` is actionable.
-- Decide on the `pandas` 3.x and `python:3.14-slim` upgrades once a Docker
-  daemon is available to validate them.
-- Optional hardening not applied because it could not be build-tested: run the
-  container images as a non-root user and set `HF_HOME` so the prefetched
+- Review open Dependabot pull request #11, which proposes `pandas` 3.x. The
+  training dependencies are not exercised by CI, so this needs a manual run of
+  the CBDB extraction and training tasks before merging.
+- Revisit the `python:3.14-slim` base image once `torch` and `transformers`
+  publish wheels for that interpreter.
+- Optional hardening not applied because it changes the model cache layout: run
+  the container images as a non-root user and set `HF_HOME` so the prefetched
   MobileBERT cache stays readable.
 
 ## Recommended GitHub repository description
