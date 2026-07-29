@@ -5,7 +5,6 @@ exclude = [
   "build",
   "dist",
   "certs",
-  "model_training/cbdb_llm_model",
 ]
 
 [tool.ruff.lint]

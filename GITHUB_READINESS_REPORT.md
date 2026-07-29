@@ -17,13 +17,19 @@ Removed in the earlier cleanup pass and confirmed absent:
 
 - `aci-deployment.yaml` at the repository root.
 - `run_local_lab.py`, an obsolete duplicate of the maintained Compose workflow.
-- Generated CBDB database, datasets, embeddings, and trained model artifacts.
+- Generated database, datasets, embeddings, and trained model artifacts.
+
+Removed as out of scope for this project:
+
+- `model_training/`, an unrelated China Biographical Database extraction and
+  model-training pipeline that shared no code with the Envoy guard. Its
+  dependencies (`pandas`, `numpy`, `scikit-learn`, `joblib`, `tqdm`) left the
+  repository with it.
 
 ## Files renamed
 
 Carried over from the earlier pass and verified:
 
-- `Model/` to `model_training/`.
 - `Attacker/recovered-model/` to `reference_filter/`.
 - `test_azure_deployment.py` to `test_remote_deployment.py`.
 
@@ -88,27 +94,20 @@ Updated during publication, after Dependabot flagged them:
 
 | Package | From | To |
 | --- | --- | --- |
-| `joblib` | 1.5.1 | 1.5.3 |
-| `numpy` | 2.3.2 | 2.5.1 |
-| `scikit-learn` | 1.7.1 | 1.9.0 |
-| `tqdm` | 4.67.1 | 4.70.0 |
 | `actions/checkout` | v4 | v7 |
 | `actions/setup-python` | v5 | v7 |
 
 Held back deliberately:
 
-- `pandas` stays at 2.3.1. Version 3.0.5 is a major release with breaking
-  changes, and the training dependencies are not installed locally, so the
-  upgrade could not be validated against `model_training/cbdb_extractor.py`.
 - The `python:3.11-slim` container base stays as is. Dependabot proposes
   `3.14-slim`, but `torch` and `transformers` wheel availability for that
   interpreter is unconfirmed, and `pyproject.toml` targets `py311`. The current
   base image builds successfully in CI.
 
-`pip-audit` across all five requirement files reports no known vulnerabilities.
-No unused packages were found. Dependabot is configured for every pip directory,
-both Docker build contexts, and GitHub Actions, and was confirmed working on the
-published repository.
+`pip-audit` across all four requirement files reports no known vulnerabilities.
+No unused packages were found. Dependabot is configured for the pip tree, all
+three Docker build contexts, and GitHub Actions, and was confirmed working on
+the published repository.
 
 ## Documentation
 
@@ -121,8 +120,7 @@ Present and verified:
   MIT `LICENSE`.
 - Issue forms, pull request template, Dependabot config, CI workflow, and
   release workflow under `.github/`.
-- `model_training/README.md` and `examples/requests.json` sample payloads that
-  contain no sensitive data.
+- `examples/requests.json` sample payloads that contain no sensitive data.
 - All relative Markdown links resolve.
 
 ## Validation
@@ -154,9 +152,6 @@ review is the only history it contains.
   written into the generated manifest.
 - Capture the two screenshots described in `docs/screenshots/README.md`.
 - Enable GitHub private vulnerability reporting so `SECURITY.md` is actionable.
-- Review open Dependabot pull request #11, which proposes `pandas` 3.x. The
-  training dependencies are not exercised by CI, so this needs a manual run of
-  the CBDB extraction and training tasks before merging.
 - Revisit the `python:3.14-slim` base image once `torch` and `transformers`
   publish wheels for that interpreter.
 - Optional hardening not applied because it changes the model cache layout: run

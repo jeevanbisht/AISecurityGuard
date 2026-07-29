@@ -15,7 +15,6 @@ application firewall, secure coding, authentication, or authorization.
 - Explicit prompt-injection and unsafe-payload checks.
 - Docker Compose environment for the proxy, guard, and sample web application.
 - Local and remote integration test scripts.
-- Optional CBDB model-training examples in `model_training/`.
 - Heuristic reference filter with regression cases in `reference_filter/`.
 
 ## Architecture
@@ -129,9 +128,8 @@ cd ai_model_service && python -m unittest discover
 cd ../reference_filter && python -m unittest discover
 ```
 
-The CBDB training pipeline has separate dependencies and setup instructions in
-[`model_training/README.md`](model_training/README.md). Generated datasets and model artifacts are
-intentionally excluded from version control.
+Downloaded model weights and other generated artifacts are intentionally
+excluded from version control.
 
 ## Roadmap
 

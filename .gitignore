@@ -33,14 +33,7 @@ htmlcov/
 *.egg-info/
 .ipynb_checkpoints/
 
-# Model and dataset artifacts
-model_training/*.csv
-model_training/*.jsonl
-model_training/*.joblib
-model_training/*.npz
-model_training/*.sqlite3
-model_training/*.db
-model_training/cbdb_llm_model/
+# Model artifacts
 .cache/
 
 # Node tooling, if added later

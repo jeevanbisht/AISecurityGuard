@@ -14,8 +14,7 @@ is based on Keep a Changelog, and the project follows Semantic Versioning.
   checks and explicit prompt-injection checks.
 - Docker Compose environment for the proxy, guard, and sample web application.
 - Local and remote integration test scripts.
-- Optional CBDB model-training examples and a heuristic reference filter with
-  regression cases.
+- Optional heuristic reference filter with regression cases.
 - Public project documentation, community health files, CI, and release
   automation.
 - Environment-driven deployment configuration and safe example values.
