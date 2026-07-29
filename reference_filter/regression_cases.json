@@ -1,0 +1,13 @@
+{
+  "attacks": [
+    "SELECT * FROM users;--",
+    "tEsT' AnD '1'='1",
+    "academic.edu/research.php?id=5 AND substring(version(),1,1)='5'"
+  ],
+  "benign": [
+    "laptops",
+    "SELECT brand from the menu",
+    "union membership information",
+    "drop leaf dining table"
+  ]
+}

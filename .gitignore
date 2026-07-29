@@ -1,0 +1,66 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+certs/
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Generated deployment files
+build/
+dist/
+bin/
+obj/
+aci-deployment.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage/
+coverage.xml
+htmlcov/
+*.egg-info/
+.ipynb_checkpoints/
+
+# Model and dataset artifacts
+model_training/*.csv
+model_training/*.jsonl
+model_training/*.joblib
+model_training/*.npz
+model_training/*.sqlite3
+model_training/*.db
+model_training/cbdb_llm_model/
+.cache/
+
+# Node tooling, if added later
+node_modules/
+npm-debug.log*
+
+# IDE and operating system
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+tmp/
+temp/

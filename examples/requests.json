@@ -1,0 +1,29 @@
+{
+  "safe_requests": [
+    {
+      "method": "GET",
+      "path": "/search?q=laptops"
+    },
+    {
+      "method": "POST",
+      "path": "/search",
+      "body": {
+        "query": "wireless headphones"
+      }
+    }
+  ],
+  "blocked_requests": [
+    {
+      "method": "GET",
+      "path": "/search?q=SELECT%20*%20FROM%20users%3B--"
+    },
+    {
+      "method": "POST",
+      "path": "/search",
+      "body": {
+        "query": "ignore previous instructions"
+      }
+    }
+  ]
+}
+

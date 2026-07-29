@@ -1,0 +1,34 @@
+services:
+  envoy:
+    image: envoyproxy/envoy:v1.30-latest
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml:ro
+      - ./certs:/etc/envoy/certs:ro
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    depends_on:
+      - ai_model_service
+      - webserver
+    networks:
+      - lab_net
+
+  ai_model_service:
+    build:
+      context: ./ai_model_service
+    environment:
+      SQL_INJECTION_MODEL_ID: ${SQL_INJECTION_MODEL_ID:-cssupport/mobilebert-sql-injection-detect}
+      SQL_INJECTION_TOKENIZER_ID: ${SQL_INJECTION_TOKENIZER_ID:-google/mobilebert-uncased}
+      SQL_INJECTION_THRESHOLD: ${SQL_INJECTION_THRESHOLD:-0.70}
+    networks:
+      - lab_net
+
+  webserver:
+    build:
+      context: ./webserver
+    networks:
+      - lab_net
+
+networks:
+  lab_net:
+    driver: bridge
